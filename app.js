@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Book = require('./Book.model');
 var port = 8080;
 var db = 'mongodb://localhost/example';
+var root = 'c:/workbench/udemy';
 
 mongoose.connect(db);
 
@@ -37,10 +38,18 @@ app.get('/books', function(req,res){
 });
 
 
+//routing to sandbox page
+app.get('/sandbox',function(req,res){
+    console.log('testing sandbox...');
+    //res.send('sandbox loaded!');
+    //res.send('<tr> <td> test </td> </tr> <tr> test2 </tr>');
+    res.sendFile(root + '/main.html');
+});
+
 //routing to /books page with id param
 // finds one book and returns json
 app.get('/books/:_id', function(req,res){
-    console.log('gettinng one book..!');
+    console.log('getting one book..!');
     Book.findOne({
         _id: req.params._id
     })
